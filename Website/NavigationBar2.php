@@ -1,0 +1,9 @@
+<nav id="headerBar">
+    <h1 id="siteName"> MZ </h1>
+    <a href="LogoutScript.php">Log Out</a>
+</nav>
+<nav id="navigationBar">
+    <ul>
+    <a href="HomePage.php">Home</a>
+    <a href="AdminFunctions.php">Admin Functions</a>
+    </ul>
