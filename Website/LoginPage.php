@@ -10,7 +10,7 @@
     <div id="LoginContainer">
         <h1>Please Log In</h1>
         <form action="LoginScript.php" method="POST"> 
-            <label for="UserId">User Id test</label>
+            <label for="UserId">User Id</label>
             <input type="text" id="UserId" name="UserId" required />
             <label for="Password">Password</label> 
             <input type="password" id="Password" name="Password" required />
