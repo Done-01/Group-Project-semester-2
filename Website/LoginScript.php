@@ -1,11 +1,11 @@
 <?php
-session_start(); 
+session_start(); // Start the session to handle session variables
 
 // Check if form is submitted
 if (isset($_POST["submit"])) {
 
-    $userId = $_POST["UserId"];  
-    $password = $_POST["Password"];
+    $userId = $_POST["UserId"];  // The name attribute matches the form input
+    $password = $_POST["Password"];  // Password input field
 
     // Create a new SQLite3 database connection
     $db = new SQLite3('MZ Bank Database.db');
@@ -29,7 +29,7 @@ if (isset($_POST["submit"])) {
 
     // If the user is found, check the password
     if ($user) {
-        // Check if the password matches 
+        // Check if the password matches (Assuming plaintext passwords, which is insecure; use password hashing in production)
         if ($password === $user['Password']) {
             // Store user information in session variables
             $_SESSION['UserId'] = $user['UserId'];
@@ -38,10 +38,10 @@ if (isset($_POST["submit"])) {
 
             // Redirect to the welcome page
             header('Location: WelcomePage.php');
-            exit;  // Exit after header to stop further script execution
+            exit;  // Important: exit after header to stop further script execution
         } else {
             // Invalid password
-            header('Location: LoginPage.php?error=invalid_password')
+            header('Location: LoginPage.php?error=invalid_password');
             exit;
         }
     } else {

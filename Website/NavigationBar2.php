@@ -4,6 +4,6 @@
 </nav>
 <nav id="navigationBar">
     <ul>
-    <a href="WelcomePage.php">Home</a>
+    <a href="HomePage.php">Home</a>
     <a href="AdminFunctions.php">Admin Functions</a>
     </ul>

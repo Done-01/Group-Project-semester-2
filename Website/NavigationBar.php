@@ -4,8 +4,10 @@
 </nav>
 <nav id="navigationBar">
     <ul>
-    <a href="WelcomePage.php">Home</a>
-    <a href="AccountPage.php">Account</a>
-    <a href="TransferPage.php">Transfer</a>
-    <a href="TransactionsPage.php">Transactions</a>
+        <a href="HomePage.php">Home</a>
+        <a href="AccountPage.php">Account</a>
+        <a href="TransferPage.php">Transfer</a>
+        <a href="TransactionsPage.php">Transactions</a>
     </ul>
+
+
