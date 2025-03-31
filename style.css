@@ -1,0 +1,128 @@
+
+
+/* This controls the header and navigation bar */
+#headerBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #3DA36F;
+    height: 50px;
+    padding: 0px 10px 0px 10px;
+    background-image: linear-gradient(to right, #347252, #5FE19F);
+}
+
+#navigationBar ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    box-shadow: 0 8px 6px -6px rgba(68, 68, 68, 0.6);
+}
+a {
+    color: black;
+    text-decoration:none;
+}
+
+#navigationBar ul a {
+    padding: 10px 25px 10px 25px
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* The background of the page */
+.container {
+    width: 100%;
+    height: 100vh;
+    background-image: url(images/bank.jpg);
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    text-align: center;
+}
+/* The square box where all the input fields are. Centered to the middle of the container. */
+.form-box{
+   width: 90%;
+   max-width: 450px;
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%,-50%);
+   background: #fff;
+   padding: 50px 60px 70px;
+   text-align: center;
+}
+/* The title of the form */
+.form-box h1{
+    font-size: 30px;
+    margin-bottom: 60px;
+    color: green;
+    position: relative;
+}
+/* Underlining the title. All of this for just a line. */
+.form-box h1::after{
+    content: '';
+    width: 30px;
+    height: 4px;
+    border-radius: 3px;
+    background: green;
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+/* Adding a rectangle within same horizonal line with flex. */
+.input-field{
+    background: lightgrey;
+    margin: 15px 0;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    max-height: 65px;
+    transition: max-height 0.5s;
+    overflow: hidden
+}
+/* The input fields adjusted */
+input {
+    width: 100%;
+    background: transparent;
+    outline: 0;
+    border: 0;
+    padding: 18px 15px;
+}
+/* Sorting out icons within the input fields */
+.input-field i{
+    margin-left: 15px;
+    color: rgb(39, 39, 39);
+}
+/* The button field at the bottom of the form */
+.btn-field{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+/* Button colour, text colour and transition animation */
+.btn-field button {
+    flex-basis: 48%;
+    background: linear-gradient(to right, green, lightgreen);
+    color: white;
+    height: 40px;
+    border: none;
+    border-radius: 15px;
+    outline: 0;
+    cursor: pointer;
+    transition: background 1s;
+}
+
+.input-group{
+    height: 280px;
+}
+
+.btn-field button.disable{
+    background: lightgray;
+    color: gray
+}
