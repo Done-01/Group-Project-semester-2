@@ -1,0 +1,79 @@
+* { 
+    margin: 0; 
+    padding: 0;
+}
+
+/* Just a placeholder to style page names for dev */
+
+#test {
+    height: 100vh;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#test form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+/* This controls the header and navigation bar */
+
+#headerBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #3DA36F;
+    height: 50px;
+    padding: 0px 10px 0px 10px
+}
+
+#navigationBar ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    list-style: none;
+}
+
+#navigationBar ul a {
+    padding: 10px 25px 10px 25px
+}
+
+/* This controls the login form */
+
+#LoginContainer {
+    height: 100vh;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+#LoginContainer form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+#LoginContainer form label {
+    margin: 25px 0px 25px 0px;
+}
+
+#LoginContainer form button {
+    margin: 25px 25px 25px 25px;
+    padding: 10px 25px 10px 25px;
+
+}
+
+/* Styling for the generic container */
+
