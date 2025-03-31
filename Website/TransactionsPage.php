@@ -4,12 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WelcomePage</title>
-    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="CSS/stylesheet.css">
 </head>
 <body>
-    <?php 
-        include 'NavigationBar.php';
+    <?php
+        session_start();
+        // Import Nav Bar
+        require_once 'NavigationBar.inc.php';
+        // Import inactivity script
+        require_once 'includes/InactivityScript.inc.php';
     ?>
-    <h1>Transactions Page</h1>
+    <div id="test">
+        <h2>Transactions Page</h2>
+    </div>
 </body>
 </html>

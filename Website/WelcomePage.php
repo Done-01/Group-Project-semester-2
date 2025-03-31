@@ -4,22 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WelcomePage</title>
-    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="CSS/stylesheet.css">
 </head>
 
 <body>
     <?php
         session_start();
-        if ($_SESSION['AdminStatus'] == 0) {
-        include 'NavigationBar.php';
-        }
-        else {
-            include "NavigationBar2.php";
-        }
+        include 'NavigationBar.inc.php';
+        require_once 'includes/InactivityScript.inc.php';
     ?>
     <div id="test">
-    <h1>Welcome Page</h1>
-    <h2><?php echo $_SESSION['FirstName'] . " " . $_SESSION['AdminStatus'];?></h2>
+        <h2>Welcome Page</h2>
+        <h2> <?php echo $_SESSION['FirstName'] . " " . $_SESSION['AdminStatus'] . " " . $_SESSION['UserId'] . " " . $_SESSION['LoginTime'] . " " . $_SESSION['error']; ?> </h2>
     </div>
 </body>
 </html>
