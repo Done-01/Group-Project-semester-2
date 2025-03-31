@@ -25,21 +25,20 @@
     ?>
 
     <div id="test">
-        
         <h2>Change users settings</h2>
         <a href="SelectUser.php"> Change selected user <a> 
         <form action="includes/AdminSettings.inc.php" method="POST"> 
-        <label for="TransactionLimit">Transaction Limit</label>
-        <input type="text" placeholder="<?php echo $transactionLimit?>"  id="TransactionLimit" name="TransactionLimit" required />
-        <label for="LoginLimit">Last Login Limit</label>
-        <input type="text" placeholder="<?php echo $loginLimit?>" id="LoginLimit" name="LoginLimit" required />
-        <button type="submit" name="submit">Confirm Changes</button>
+            <label for="TransactionLimit">Transaction Limit</label>
+            <input type="text" placeholder="<?php echo $transactionLimit?>"  id="TransactionLimit" name="TransactionLimit" required />
+            <label for="LoginLimit">Last Login Limit</label>
+             <input type="text" placeholder="<?php echo $loginLimit?>" id="LoginLimit" name="LoginLimit" required />
+            <button type="submit" name="submit">Confirm Changes</button>
             
-        <?php if ($error): ?>
-        <div id="error"> 
-        <p><?php echo $error?></p>
-        </div>
-        <?php endif; ?>
+            <?php if ($error): ?>
+            <div id="error"> 
+            <p><?php echo $error?></p>
+            </div>
+            <?php endif; ?>
             
         </form>
     </div>
