@@ -24,7 +24,7 @@
 
     <div id="test">
         
-        <h2>Select User</h2>
+        <h2>Select User to make changes to</h2>
 
         <form action="includes/SelectUser.inc.php" method="POST"> 
         <label for="SelectedId">Select Id</label>
