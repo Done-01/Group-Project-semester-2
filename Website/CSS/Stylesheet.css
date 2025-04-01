@@ -77,3 +77,37 @@
 
 /* Styling for the generic container */
 
+
+
+/* this controls the image select form */
+
+#PictureSelectContainer {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 25px;
+    background-color: gray;
+    border-style: solid;
+    border-width: 4px;
+    border-color: black;
+    border-radius: 25px;
+}
+#PictureSelectContainer img {
+    border-style: solid;
+    border-width: 4px;
+    border-color: black;
+    border-radius: 25px;
+}
+#PictureSelectContainer button {
+    padding: 10px;
+}
+#RadioButtons2x2 {
+    display: grid;
+    justify-content: space-around;
+    column-gap: 20px;
+    row-gap: 20px;
+    grid-template-columns: 1fr 1fr;
+    
+}
+#PictureSelectContainer input {
+    color: #3DA36F;
+}
