@@ -17,10 +17,15 @@
     // Import inactivity script
     require_once 'includes/InactivityScript.inc.php';
     
+    
 ?>
     <div id="test">
         <h2>Account Page</h2>
-        <p>Balance: £<?php echo $balance?></p>
+        <p>
+            Balance: £<?php echo $balance?>
+            Add other user info here.
+        </p>
+
     </div>
 </body>
 </html>

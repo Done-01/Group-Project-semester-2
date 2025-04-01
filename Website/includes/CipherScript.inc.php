@@ -8,10 +8,16 @@
 
     $encriptedString = VigenereEncrypt($string,$key);
 
+
     $decryptedString = VigenereDecrypt($encriptedString,$key);
 
     
 
+
+
+
+
+    
 
 
 
