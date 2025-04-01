@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homepage</title>
+    <title>captcha</title>
     <link rel="stylesheet" type="text/css" href="CSS/stylesheet.css">
 </head>
 
@@ -14,29 +14,29 @@
         require_once "includes/ImagePageScript.inc.php";
     ?>
     <div id="test">
-<<<<<<< Updated upstream
-        <form>
-=======
+
+
+
+
         <form action="includes/ImageCheckScript.inc.php" method="post">
->>>>>>> Stashed changes
+
+        <form action="includes/ImageCheckScript.inc.php" method="post">
+
+        <form action="includes/ImageCheckScript.inc.php" method="post">
+
             <legend>Select the word that matches the image</legend>
             <img src="<?php echo $questionImage?>" width="500" height="500">
+            <div id="RadioButtons2x2">
             <?php foreach ($answers as $answer): ?>
             <label>
-<<<<<<< Updated upstream
-                <input type="radio" name="answer">
-=======
                 <input type="radio" name="answer" value="<?php echo $answer?>">
->>>>>>> Stashed changes
                 <?php echo $answer?>
             </label>
             <?php endforeach ?>
+            </div>
             <button type="submit" name="submit">Submit</button>
         </form>
+        <?php echo 3-$_SESSION['Attempts']?>
     </div>
-
-
-
 </body>
-
 </html>
