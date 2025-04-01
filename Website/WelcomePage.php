@@ -15,7 +15,7 @@
     ?>
     <div id="test">
         <h2>Welcome Page</h2>
-        <h2> <?php echo $_SESSION['FirstName'] . " " . $_SESSION['AdminStatus'] . " " . $_SESSION['UserId'] . " " . $_SESSION['LoginTime'] . " " . $_SESSION['error']; ?> </h2>
+        <h2> <?php echo $_SESSION['FirstName'] . " " . $_SESSION['AdminStatus'] . " " . $_SESSION['UserId'] . " " . $_SESSION['LoginTime']; ?> </h2>
     </div>
 </body>
 </html>
