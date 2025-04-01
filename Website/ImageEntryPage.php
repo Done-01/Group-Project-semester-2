@@ -15,7 +15,11 @@
     ?>
     <div id="test">
 <<<<<<< HEAD
+<<<<<<< HEAD
         <form id="PictureSelectContainer">
+=======
+        <form action="includes/ImageCheckScript.inc.php" method="post">
+>>>>>>> 8e669a10c965af4fb365c36dad3eae796f0b618e
 =======
         <form action="includes/ImageCheckScript.inc.php" method="post">
 >>>>>>> 8e669a10c965af4fb365c36dad3eae796f0b618e
@@ -25,7 +29,11 @@
             <?php foreach ($answers as $answer): ?>
             <label>
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <input type="radio" name="answer" id="radio">
+=======
+                <input type="radio" name="answer" value="<?php echo $answer?>">
+>>>>>>> 8e669a10c965af4fb365c36dad3eae796f0b618e
 =======
                 <input type="radio" name="answer" value="<?php echo $answer?>">
 >>>>>>> 8e669a10c965af4fb365c36dad3eae796f0b618e
