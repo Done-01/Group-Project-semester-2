@@ -29,9 +29,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #3DA36F;
     height: 50px;
-    padding: 0px 10px 0px 10px
+    padding: 0px 10px 0px 10px;
+    background: linear-gradient(to left,#5FE19F,#347252);
 }
 
 #navigationBar ul {
@@ -42,10 +42,31 @@
     list-style: none;
 }
 
+#navigationBar a {
+    text-decoration: none;
+    color: black;
+}
+
+#navigationBar hamburger {
+    display:none;
+}
+
+#headerBar a {
+    text-decoration: none;
+    color: black;
+}
+
+
 #navigationBar ul a {
     padding: 10px 25px 10px 25px
 }
 
+#toggle {
+    display: flex;
+}
+#hamburger {
+    display: none;
+}
 /* This controls the login form */
 
 #LoginContainer {
@@ -90,6 +111,7 @@
     border-width: 4px;
     border-color: black;
     border-radius: 25px;
+    width:auto;
 }
 #PictureSelectContainer img {
     border-style: solid;
@@ -97,6 +119,40 @@
     border-color: black;
     border-radius: 25px;
 }
+
+@media only screen and (max-width: 600px) {
+    #PictureSelectContainer {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 25px;
+        background-color: gray;
+        border-style: solid;
+        border-width: 4px;
+        border-color: black;
+        border-radius: 25px;
+        scale:60%;
+    }
+    #PictureSelectContainer img {
+        border-style: solid;
+        border-width: 4px;
+        border-color: black;
+        border-radius: 25px;
+        scale: 70%;
+    }
+    #toggle {
+        display:none;
+    }
+    #navigationBar ul {
+        display: grid;
+    }
+    #hamburger {
+        display: grid;
+        text-align: center;
+    }
+
+
+  }
+
 #PictureSelectContainer button {
     padding: 10px;
 }

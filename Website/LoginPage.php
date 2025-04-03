@@ -23,7 +23,7 @@
         
         <form action="includes/LoginCheckScript.inc.php" method="POST"> 
             <label for="UserId">User Id</label>
-            <input type="text" id="UserId" name="UserId" required />
+            <input type="text" id="UserId" autocapitalize="none" name="UserId" required />
             <label for="Password">Password</label> 
             <input type="password" id="Password" name="Password" required />
             <button type="submit" name="submit">Log In</button>
