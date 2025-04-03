@@ -13,9 +13,14 @@
         require_once 'NavigationBar.inc.php';
         // Import inactivity script
         require_once 'includes/InactivityScript.inc.php';
+        // Import Database Connection script
+        require_once 'includes/dbh.inc.php';
     ?>
     <div id="test">
         <h2>Transactions Page</h2>
+
+        e
+
     </div>
 </body>
 </html>
