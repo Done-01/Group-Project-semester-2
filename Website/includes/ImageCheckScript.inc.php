@@ -22,5 +22,6 @@
     }
     else {
         unset($_SESSION['Answer']);
-        // code to destroy session and route to homepage.
+        header('Location: ../LogoutScript.inc.php');
+        exit();
     }

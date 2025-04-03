@@ -61,13 +61,15 @@ $mail->setFrom('mzmazwanbank@gmail.com', 'MZMazwan');
 
 //Set who the message is to be sent to
 // This will be taken from the database
+$customerEmail = "robert-a-dunn@hotmail.com";
+$customerName= "Robert Dunn";
 $mail->addAddress($customerEmail,$customerName);
 
 // Subjext of the email
-$mail->Subject = "Thankyou for using MZBank. Here is your authentication code: $authenticationCode";
+$mail->Subject = "Authentication Code";
 
 // Body of the email
-$mail->Body = 'This is a plain-text message body';
+$mail->Body = "Thank you for using MZBank. Here is your authentication code: $authenticationCode";
 
 //send the message, check for errors
 if (!$mail->send()) {

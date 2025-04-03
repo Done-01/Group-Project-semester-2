@@ -47,24 +47,6 @@ function GetBalance($db, $userId) {
     return $balance;
 }
 
-// Credit Balance
-
-function CreditBalance($db, $userId, $amount) {
-    $stmt = $db->prepare("UPDATE Users SET Balance = Balance + :Amount WHERE UserId = :UserId");
-    $stmt->bindValue(':Amount', $amount, SQLITE3_FLOAT);
-    $stmt->bindValue(':UserId', $userId, SQLITE3_TEXT);
-    $result = $stmt->execute();
-}
-
-// Deduct Balance
-
-function DeductBalance($db, $userId, $amount) {
-    $stmt = $db->prepare("UPDATE Users SET Balance = Balance - :Amount WHERE UserId = :UserId AND Balance >= :Amount");
-    $stmt->bindValue(':Amount', $amount, SQLITE3_FLOAT);
-    $stmt->bindValue(':UserId', $userId, SQLITE3_TEXT);
-    $result = $stmt->execute();
-}
-
 // Test transaction function
 
 function TransferBalance($db, $fromUserId, $toUserId, $amount) {
