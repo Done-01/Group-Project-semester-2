@@ -13,69 +13,57 @@
         require_once 'NavigationBar.inc.php';
         // Import inactivity script
         require_once 'includes/InactivityScript.inc.php';
-        // Import Database Connection script
-        require_once 'includes/dbh.inc.php';
-
-        $UserId = $_SESSION["UserId"];
+        // Import transactions tables script
+        require_once 'includes/transactionsScript.inc.php';
     ?>
+
     <div id="test">
         <h2>Transactions Page</h2>
-
-            <div class="transactionTables">
+        <div class="transactionTables">
             <h3>Incoming</h3>
-                <?php
-                    $select_query = "SELECT * FROM Transactions WHERE ReceiverID = '$UserId'";
-                    $result = $db -> query($select_query);
+            <table>
+                <th>
+                    <tr>
+                        <th>SenderID</th>
+                        <th>ReceiverID</th>
+                        <th>Time of Transaction</th>
+                        <th>Amount</th>
+                    </tr>
+                </th>
+                <tb>
+                    <?php while ($row = $incomingTransactions->fetchArray(SQLITE3_ASSOC)): ?>
+                        <tr>
+                            <td><?= $row['SenderID'] ?></td>
+                            <td><?= $row['ReceiverID'] ?></td>
+                            <td><?= $row['TransactionTime'] ?></td>
+                            <td><?= $row['Amount'] ?></td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tb>
+            </table>
 
-                    echo "<table>";
-                    echo "<tr> <th>SenderID</th>
-                            <th>ReceiverID</th>
-                            <th>Time of Transaction</th>
-                            <th>Amount</th> </tr>";
-                    while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-                        $senderID= $row['SenderID'];
-                        $receiverID=$row['ReceiverID'];
-                        $transactionTime=$row['TransactionTime'];
-                        $amount=$row['Amount'];
-                        echo "<tr> 
-                            <td>$senderID</td> 
-                            <td>$receiverID</td>
-                            <td>$transactionTime</td>
-                            <td>$amount</td>
-                            </tr>";
-                    }
-
-                    echo "</tbody>";
-                    echo "</table>";
-                ?>
-
-                <h3>Outgoing</h3>
-                <?php
-                    $select_query = "SELECT * FROM Transactions WHERE SenderID = '$UserId'";
-                    $result = $db -> query($select_query);
-
-                    echo "<table>";
-                    echo "<tr> <th>SenderID</th>
-                            <th>ReceiverID</th>
-                            <th>Time of Transaction</th>
-                            <th>Amount</th> </tr>";
-                    while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-                        $senderID= $row['SenderID'];
-                        $receiverID=$row['ReceiverID'];
-                        $transactionTime=$row['TransactionTime'];
-                        $amount=$row['Amount'];
-                        echo "<tr> 
-                            <td>$senderID</td> 
-                            <td>$receiverID</td>
-                            <td>$transactionTime</td>
-                            <td>$amount</td>
-                            </tr>";
-                    }
-
-                    echo "</tbody>";
-                    echo "</table>";
-                ?>
-            </div>
+            <h3>Outgoing</h3>
+            <table>
+                <th>
+                    <tr>
+                        <th>SenderID</th>
+                        <th>ReceiverID</th>
+                        <th>Time of Transaction</th>
+                        <th>Amount</th>
+                    </tr>
+                </th>
+                <tb>
+                    <?php while ($row = $outgoingTransactions->fetchArray(SQLITE3_ASSOC)): ?>
+                        <tr>
+                            <td><?= $row['SenderID'] ?></td>
+                            <td><?= $row['ReceiverID'] ?></td>
+                            <td><?= $row['TransactionTime'] ?></td>
+                            <td><?= $row['Amount'] ?></td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tb>
+            </table>
+        </div>
     </div>
 </body>
 </html>
