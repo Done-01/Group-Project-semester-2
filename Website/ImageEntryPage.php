@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>captcha</title>
+    <title>Homepage</title>
     <link rel="stylesheet" type="text/css" href="CSS/stylesheet.css">
 </head>
 
@@ -19,14 +19,12 @@
 
             <legend>Select the word that matches the image</legend>
             <img src="<?php echo $questionImage?>" width="500" height="500">
-            <div id="RadioButtons2x2">
             <?php foreach ($answers as $answer): ?>
             <label>
                 <input type="radio" name="answer" value="<?php echo $answer?>">
                 <?php echo $answer?>
             </label>
             <?php endforeach ?>
-            </div>
             <button type="submit" name="submit">Submit</button>
         </form>
         <?php echo 3-$_SESSION['Attempts']?>

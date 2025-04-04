@@ -1,60 +1,64 @@
 <?php
-    session_start();
+session_start();
 
-    if (isset($_POST["submit"])) {
+require_once 'dbh.inc.php';
+require_once 'db_functions.inc.php';
 
-        require_once 'dbh.inc.php';
-        require_once 'db_functions.inc.php';
+$userId = $_POST["UserId"];  
+$password = $_POST["Password"];
 
-        $userId = $_POST["UserId"];  
-        $password = $_POST["Password"];
+if (!isset($_POST['UserId']) || !isset($_POST['Password'])) {
+    // Redirect to login page
+    header('Location: ../LoginPage.php');
+    exit();
+}
 
-        $userArray = GetAllById($db, $userId);
+$userId = trim($_POST["UserId"]);
+$password = trim($_POST["Password"]);
 
-        if ($userArray) {
+$userInfo = GetAllById($db, $userId);
 
-            if ($password === $userArray['Password']) {
+if (!$userInfo) {
+    // Redirect to login page with error
+    $_SESSION['error'] = "Invalid User Id";
+    header('Location: ../LoginPage.php');
+    exit();
+}
 
-                session_regenerate_id(true);
-            
-                // Set session variables
+if ($password !== $userInfo['Password']) {
+    // Redirect to login page with error
+    $_SESSION['error'] = "Invalid Password";
+    header('Location: ../LoginPage.php');
+    exit();
+}
 
-                $_SESSION['UserId'] = $userArray['UserId'];
-                $_SESSION['FirstName'] = $userArray['FirstName'];
-                $_SESSION['AdminStatus'] = $userArray['AdminStatus'];
+// Create a new DateTime object for the current login time
+$newLoginTime = new DateTime();
+$newLoginTimeString = $newLoginTime->format('Y-m-d H:i:s');
 
-                // Get Login time and set it as a session variable
+// Get last login time from the database
+$oldLoginTimeString = $userInfo['LastLogin'];
+$oldLoginTime = DateTime::createFromFormat('Y-m-d H:i:s', $oldLoginTimeString);
 
-                $loginTime = date('Y-m-d H:i:s');
+// Calculate time difference since last login
+$difference = $oldLoginTime->diff($newLoginTime);
 
-                $_SESSION['LoginTime'] = $loginTime;
+if ($difference->days > $userInfo['LoginLimit']) {
+    $_SESSION['UserId'] = $userInfo['UserId'];
+    header('Location: ../ImageEntryPage.php');
+    exit();
+}
 
-                // Update database with Login time by calling the function
+session_regenerate_id(true);
 
-                UpdateLastLogin($db, $_SESSION['UserId'], $loginTime);
+// Set session variables
+$_SESSION['UserId'] = $userInfo['UserId'];
+$_SESSION['LoggedIn'] = 1;
 
-                // Redirect to the welcome page
-                header('Location: ../WelcomePage.php');
-                exit();
+// Update database with new login time
+UpdateLastLogin($db, $_SESSION['UserId'], $newLoginTimeString);
 
-            } else {
-
-                // Invalid password
-                $_SESSION['error'] = "Invalid Password";
-                header('Location: ../LoginPage.php');
-                exit();
-
-            }
-
-        } else {
-
-            // User not found
-            $_SESSION['error'] = "Invalid User Id";
-            header('Location: ../LoginPage.php');
-            exit();
-
-        }
-
-    }
-
-
+// Redirect to the welcome page
+header('Location: ../WelcomePage.php');
+exit();
+?>
