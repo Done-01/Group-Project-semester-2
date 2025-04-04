@@ -14,7 +14,9 @@
         require_once "includes/ImagePageScript.inc.php";
     ?>
     <div id="test">
-        <form action="includes/ImageCheckScript.inc.php" method="post">
+
+        <form action="includes/ImageCheckScript.inc.php" method="post" id="PictureSelectContainer">
+
             <legend>Select the word that matches the image</legend>
             <img src="<?php echo $questionImage?>" width="500" height="500">
             <?php foreach ($answers as $answer): ?>

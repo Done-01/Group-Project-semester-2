@@ -95,4 +95,16 @@ function Get4RandomImages($db) {
     return $images;
 }
 
+// get relevant data for transaction tables
 
+function IncomingTable($db, $userId) {
+    $stmt = $db->prepare("SELECT * FROM Transactions WHERE ReceiverID = :userid");
+    $stmt->bindValue(':userid', $userId, SQLITE3_TEXT);
+    return $stmt->execute();
+}
+
+function OutgoingTable($db, $userId) {
+    $stmt = $db->prepare("SELECT * FROM Transactions WHERE SenderID = :userid");
+    $stmt->bindValue(':userid', $userId, SQLITE3_TEXT);
+    return $stmt->execute();
+}

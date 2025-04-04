@@ -1,3 +1,5 @@
+<script src="js/scripts.js"></script> 
+
 <?php
     
     if (!isset($_SESSION['AdminStatus'])) { // Not Logged in
@@ -20,8 +22,11 @@
                 </nav>
                 <nav id="navigationBar">
                     <ul>
+                        <li id="hamburger" onclick="test()"><a>☰</a></li>
+                        <div id="toggle">
                         <li><a href="WelcomePage.php">Home</a></li>
                         <li><a href="SelectUser.php">Admin Settings</a></li>
+                        </div>
                     </ul>
                 </nav>';
     }
@@ -33,11 +38,15 @@
                 </nav>
                 <nav id="navigationBar">
                     <ul>
+                        <li id="hamburger" onclick="test()"><a>☰</a></li>
+                        <div id="toggle">
                         <li><a href="WelcomePage.php">Home</a></li>
                         <li><a href="AccountPage.php">Account</a></li>
                         <li><a href="TransferPage.php">Transfer</a></li>
                         <li><a href="TransactionsPage.php">Transactions</a></li>
+                        </div>
                     </ul>
                 </nav>';
     }
 
+?>
