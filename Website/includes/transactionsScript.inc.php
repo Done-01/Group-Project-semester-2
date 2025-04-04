@@ -11,4 +11,3 @@ $userId = $_SESSION["UserId"];
 
 $incomingTransactions = IncomingTable($db, $userId);
 $outgoingTransactions = OutgoingTable($db, $userId);
-?>
