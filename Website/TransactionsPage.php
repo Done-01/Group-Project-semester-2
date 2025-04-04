@@ -15,7 +15,6 @@
         require_once 'includes/InactivityScript.inc.php';
         // Import transactions tables script
         require_once 'includes/transactionsScript.inc.php';
-    ?>
 
     <div id="test">
         <h2>Transactions Page</h2>
