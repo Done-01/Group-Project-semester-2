@@ -53,6 +53,7 @@ session_regenerate_id(true);
 
 // Set session variables
 $_SESSION['UserId'] = $userInfo['UserId'];
+$_SESSION['AdminStatus'] = $userInfo['AdminStatus'];
 $_SESSION['LoggedIn'] = 1;
 
 // Update database with new login time
