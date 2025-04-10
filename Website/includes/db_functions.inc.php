@@ -33,7 +33,7 @@ function UpdateLastLogin($db, $userId, $loginTime) {
     $stmt = $db->prepare("UPDATE Users SET LastLogin = :LastLogin WHERE UserId = :UserId");
     $stmt->bindValue(':LastLogin', $loginTime, SQLITE3_TEXT);
     $stmt->bindValue(':UserId', $userId, SQLITE3_TEXT);
-    $result = $stmt->execute();
+    $stmt->execute();
 }
 
 // Get users balance
@@ -81,7 +81,7 @@ function UpdateUserSettings($db, $userId, $loginLimit, $transactionLimit) {
     $stmt->bindValue(':LoginLimit', $loginLimit, SQLITE3_INTEGER);
     $stmt->bindValue(':TransactionLimit', $transactionLimit, SQLITE3_INTEGER);
     $stmt->bindValue(':UserId', $userId, SQLITE3_TEXT);
-    $result = $stmt->execute();
+    $stmt->execute();
 }
 
 // get 4 random entries from the images table
@@ -95,16 +95,24 @@ function Get4RandomImages($db) {
     return $images;
 }
 
-// get relevant data for transaction tables
+// get a users email address
 
-function IncomingTable($db, $userId) {
-    $stmt = $db->prepare("SELECT * FROM Transactions WHERE ReceiverID = :userid");
-    $stmt->bindValue(':userid', $userId, SQLITE3_TEXT);
-    return $stmt->execute();
+function GetUserEmail($db, $userId) {
+    $stmt = $db->prepare('SELECT Email FROM Users WHERE UserId = :id'); 
+    $stmt->bindValue(':id', $userId, SQLITE3_TEXT);
+    $result = $stmt->execute();
+    $row = $result->fetchArray(SQLITE3_ASSOC);
+    $email = $row['Email'];
+    return $email;
 }
 
-function OutgoingTable($db, $userId) {
-    $stmt = $db->prepare("SELECT * FROM Transactions WHERE SenderID = :userid");
-    $stmt->bindValue(':userid', $userId, SQLITE3_TEXT);
-    return $stmt->execute();
+// save authentication code and creation time to database
+
+function StoreCode($db, $userId, $string, $key, $generatedTime) {
+    $stmt = $db->prepare("UPDATE Users SET Code = :Code, Key = :Key, GeneratedTime = :GeneratedTime WHERE UserId = :UserId");
+    $stmt->bindValue(':Code', $string, SQLITE3_TEXT);
+    $stmt->bindValue(':Key', $key, SQLITE3_TEXT);
+    $stmt->bindValue(':GeneratedTime', $generatedTime, SQLITE3_TEXT);
+    $stmt->bindValue(':UserId', $userId, SQLITE3_TEXT);
+    $stmt->execute();
 }
