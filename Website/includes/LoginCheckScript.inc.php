@@ -1,60 +1,71 @@
 <?php
-    session_start();
+session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+require_once 'dbh.inc.php';
+require_once 'db_functions.inc.php';
 
-    if (isset($_POST["submit"])) {
+$userId = $_POST["UserId"];
+$password = $_POST["Password"];
 
-        require_once 'dbh.inc.php';
-        require_once 'db_functions.inc.php';
+if (!isset($_POST['UserId']) || !isset($_POST['Password'])) {
+    // Redirect to login page
+    header('Location: ../LoginPage.php');
+    exit();
+}
 
-        $userId = $_POST["UserId"];  
-        $password = $_POST["Password"];
+$userInfo = GetAllById($db, $userId);
 
-        $userArray = GetAllById($db, $userId);
+if (!$userInfo) {
+    // Redirect to login page with error
+    $_SESSION['error'] = "Invalid User Id";
+    header('Location: ../LoginPage.php');
+    exit();
+}
 
-        if ($userArray) {
+$userId = trim($_POST["UserId"]);
+$password = trim($_POST["Password"]);
 
-            if ($password === $userArray['Password']) {
+if ($password !== $userInfo['Password']) {
+    // Redirect to login page with error
+    $_SESSION['error'] = "Invalid Password";
+    header('Location: ../LoginPage.php');
+    exit();
+}
 
-                session_regenerate_id(true);
-            
-                // Set session variables
+// Create a new DateTime object for the current login time
+$newLoginTime = new DateTime();
+$newLoginTimeString = $newLoginTime->format('Y-m-d H:i:s');
 
-                $_SESSION['UserId'] = $userArray['UserId'];
-                $_SESSION['FirstName'] = $userArray['FirstName'];
-                $_SESSION['AdminStatus'] = $userArray['AdminStatus'];
+// Get last login time from the database
+if ($userInfo['LastLogin']) {
+$oldLoginTimeString = $userInfo['LastLogin'];
+}
+else {
+    $oldLoginTimeString = "2025-01-01 00:00:00";
+}
+$oldLoginTime = DateTime::createFromFormat('Y-m-d H:i:s', $oldLoginTimeString);
 
-                // Get Login time and set it as a session variable
+// Calculate time difference since last login
+$difference = $oldLoginTime->diff($newLoginTime);
 
-                $loginTime = date('Y-m-d H:i:s');
+if ($difference->days > $userInfo['LoginLimit']) {
+    $_SESSION['UserId'] = $userInfo['UserId'];
+    $_SESSION['TAC'] = "Login";
+    header('Location: ../ImageEntryPage.php');
+    exit();
+}
 
-                $_SESSION['LoginTime'] = $loginTime;
+session_regenerate_id(true);
 
-                // Update database with Login time by calling the function
+// Set session variables
+$_SESSION['UserId'] = $userInfo['UserId'];
+$_SESSION['AdminStatus'] = $userInfo['AdminStatus'];
+$_SESSION['LoggedIn'] = 1;
 
-                UpdateLastLogin($db, $_SESSION['UserId'], $loginTime);
+// Update database with new login time
+UpdateLastLogin($db, $_SESSION['UserId'], $newLoginTimeString);
 
-                // Redirect to the welcome page
-                header('Location: ../WelcomePage.php');
-                exit();
-
-            } else {
-
-                // Invalid password
-                $_SESSION['error'] = "Invalid Password";
-                header('Location: ../LoginPage.php');
-                exit();
-
-            }
-
-        } else {
-
-            // User not found
-            $_SESSION['error'] = "Invalid User Id";
-            header('Location: ../LoginPage.php');
-            exit();
-
-        }
-
-    }
-
-
+// Redirect to the welcome page
+header('Location: ../WelcomePage.php');
+exit();

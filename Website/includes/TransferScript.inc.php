@@ -1,44 +1,52 @@
 <?php
-    session_start();
+session_start();
 
-    require_once 'dbh.inc.php';
-    require_once 'db_functions.inc.php';
-    require_once 'BalanceScript.inc.php';
+require_once 'dbh.inc.php';
+require_once 'db_functions.inc.php';
+require_once 'BalanceScript.inc.php';
 
-    // first check that the form was submitted and the userid session variable exists
+$userInfo = GetAllById($db, $_SESSION['UserId']);
 
-    if (isset($_POST['submit']) && isset($_SESSION["UserId"])) { 
+// check if form wasn't submitted or user isn't logged in
+if (!isset($_POST['submit']) || !isset($_SESSION["UserId"])) {
+    header('Location: ../TransferPage.php');
+    exit();
+}
 
-        $senderId = $_SESSION["UserId"];
-        $recipientId = $_POST["RecipientId"];
-        $transferAmount = $_POST["TransferAmount"];
+// check if a TAC has been completed
 
-        // check that the recipient exists
-        if (DoesUserExist($db, $recipientId)) {
-            // then check that the user has adequate funds
-            if ($balance >= $transferAmount && $transferAmount > 0) {
-                
-                TransferBalance($db, $senderId, $recipientId, $transferAmount);
-                header('Location: ../TransferPage.php');
-                exit();
-            }
-            else {
-            // if user doesnt have enough cash or amount entered is negative set error to Insufficient Funds
-            $_SESSION['error'] = "Invalid amount";
-            header('Location: ../TransferPage.php');
-            exit();
+if (!isset($_SESSION['AuthenticationStatus'])) {
+    $_SESSION['AuthenticationStatus'] = 0;
+}
 
-            }
-        }
-        else {
-            // if user doesnt exist set error to invalid user 
-            $_SESSION['error'] = "Invalid User";
-            header('Location: ../TransferPage.php');
-            exit();
-        }
-    }
-    else {
-        header('Location: ../TransferPage.php');
-        exit();
-    }
+$senderId = $_SESSION["UserId"];
+$recipientId = $_POST["RecipientId"];
+$transferAmount = $_POST["TransferAmount"];
 
+// Check if recipient doesn't exist
+if (!DoesUserExist($db, $recipientId)) {
+    $_SESSION['error'] = "Invalid User";
+    header('Location: ../TransferPage.php');
+    exit();
+}
+
+// Check for invalid amount (negative or insufficient funds)
+if ($balance < $transferAmount || $transferAmount <= 0) {
+    $_SESSION['error'] = "Invalid amount";
+    header('Location: ../TransferPage.php');
+    exit();
+}
+
+// Check amount isnt over the users limit
+if ($transferAmount > $userInfo['TransactionLimit'] && $_SESSION['AuthenticationStatus'] == 0) {
+    $_SESSION['TAC'] = "Transfer";
+    $_SESSION['TransactionDetails'] = [$senderId, $recipientId, $transferAmount];
+    header('Location: ../ImageEntryPage.php');
+    exit();
+}
+
+// If all checks passed, perform the transfer
+TransferBalance($db, $senderId, $recipientId, $transferAmount);
+header('Location: ../TransferPage.php');
+exit();
+?>
