@@ -23,7 +23,7 @@
                     <a class="nav-link" href="loginPage.php">Log in</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
+                    <a class="nav-link" href="HomePage.php#ContactAnchor">Contact</a>
                   </li>
                 </ul>
                 <form class="d-flex" role="search">
@@ -97,6 +97,7 @@
             </div>
             <div class="row justify-content-center my-5">
                 <form>
+                  <div id="ContactAnchor"></div>
                     <div class="text-center">
                         <h2>Contact Us</h2>
                         <p class="lead">If you have any questions or inquiries, please fill out the form below:</p>
