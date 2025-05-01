@@ -8,20 +8,18 @@ require_once "../includes/functions_view.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/reset.css">
-    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/main.css">
     <title>Login Page</title>
 </head>
 <body>
-    <?php 
-        renderNavbar($pdo,"home");
-    ?>
+    <?php renderNavbar($pdo,"home");?>
     <div class="content-container">
         <h2>
             Balance
         </h2>
         <p>
-            <?php displayBalance($pdo,$userId)?>
+            £<?php displayBalance($pdo, $_SESSION['userId']) ?>
         </p>
     </div>
 </body>

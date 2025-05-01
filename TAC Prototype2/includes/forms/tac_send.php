@@ -12,7 +12,17 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit();
 }
 
+
 $errors = [];
+
+if (!isset($_SESSION['userId'])) {
+    $_SESSION['userErrors']['notLoggedIn'] = "Please log-in";
+    header('Location: ../../public/login-form.php');
+    exit();
+}
+
+$userId = $_SESSION['userId'];
+unset($_SESSION['userId']);
 
 if (empty($_POST['choice'])) {
     $errors['noSelection'] = "Please make a selection before submitting";
@@ -25,15 +35,11 @@ if (!empty($errors)) {
 }
 
 try {
-    // Validate user session
-    if (empty($_SESSION['userId'])) {
-        throw new Exception('User session invalid');
-    }
-
-    $tac = getTAC($pdo, $_SESSION['userId']);
-    $key = getKey($pdo, $_SESSION['userId']);
+    
+    $tac = getTAC($pdo, $userId);
+    $key = getKey($pdo, $userId);
     $encryptedTAC = encryptTAC($tac, $key);
-    $email = getEmail($pdo, $_SESSION['userId']);
+    $email = getEmail($pdo, $userId);
 
     // Validate email
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -56,20 +62,29 @@ try {
     $mail->addAddress($email);                         // To address
 
     // Content
-    $mail->Subject = "Authentication Code";
-    $mail->Body = "Thank you for using MZBank. Here is your authentication code: $encryptedTAC";
+    if ($_SESSION['tacType'] == "transfer") {
+        $transactionDetails = $_SESSION['transaction'];
+        $amount = $transactionDetails['amount'];
+        $recipientId = $transactionDetails['recipient'];
+        $amount = number_format($amount / 100, 2, '.', '');
+        $mail->Subject = 'MZBank Transfer Authentication Code';
+        $mail->Body = "You are attempting to transfer £$amount to user ID $recipientId. Here is your authentication code: $encryptedTAC";
+    } else {
+        $mail->Subject = 'MZBank Authentication Code';
+        $mail->Body = "Thank you for using MZBank. Here is your authentication code: $encryptedTAC";
+    }
 
     if (!$mail->send()) {
         throw new Exception('Mail send failed');
     }
 
+    $_SESSION['userId'] = $userId;
+
     header("Location: ../../public/tac-form.php");
     exit();
 
 } catch (Exception $e) {
-    error_log("TAC Delivery Error: " . $e->getMessage());
-    $errors['emailError'] = "Failed to send authentication code. Please try again later.";
-    $_SESSION['userErrors'] = $errors;
-    header('Location: ../../public/tac-choice.php');
+    error_log('Database error: ' . $e->getMessage());
+    header('Location: ../../public/error-page.php?error=database');
     exit();
 }
