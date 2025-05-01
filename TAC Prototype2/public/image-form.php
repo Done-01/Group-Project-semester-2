@@ -1,5 +1,5 @@
 <?php
-require_once "../includes/page_logic/image.php";
+require_once "../includes/page_logic/image_logic.php";
 ?>
 
 <!DOCTYPE html>
@@ -8,8 +8,8 @@ require_once "../includes/page_logic/image.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/reset.css">
-    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/main.css">
     <title>Login Page</title>
 </head>
 
@@ -21,7 +21,6 @@ require_once "../includes/page_logic/image.php";
         <?php
         renderRadial($array);
         displayUserErrors();
-        echo $_SESSION['attempts'];
         ?>
     </div>
 </body>

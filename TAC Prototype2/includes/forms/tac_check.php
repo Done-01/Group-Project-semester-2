@@ -11,8 +11,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit();
 }
 
-$errors = [];
-$_SESSION['attempts'] ??= 3;
+if (!isset($_SESSION['userId'])) {
+    $_SESSION['userErrors']['notLoggedIn'] = "Please log-in";
+    header('Location: ../../public/login-form.php');
+    exit();
+}
+
+$userId = $_SESSION['userId'];
+$_SESSION['attempts'] ??= 2;
 
 if ($_SESSION['attempts'] <= 1) {
     unset($_SESSION['attempts']);
@@ -22,16 +28,19 @@ if ($_SESSION['attempts'] <= 1) {
 
 if (isInputEmpty($_POST['input'])) {
     $errors['noSelection'] = "Please fill field before submitting";
-} else {
-    $input =  $_POST['input'];
-    $tac = getTAC($pdo, $_SESSION['userId']);
-    $key = getKey($pdo, $_SESSION['userId']);
+}
+$input =  $_POST['input'];
+$tac = getTAC($pdo, $userId);
+$key = getKey($pdo, $userId);
+$interval = getTimeElapsed(getTimeGenerated($pdo, $userId));
+$decryptedInput = decryptTAC($input, $key);
 
-    $decryptedInput = decryptTAC($input, $key);
+if ($decryptedInput !== $tac) {
+    $errors['tacMismatch'] = "Incorrect code entered";
+}
 
-    if ($decryptedInput !== $tac) {
-        $errors['tacMismatch'] = "Incorrect code entered";
-    }
+if ($interval > 5) {
+    $errors['tacExpired'] = "TAC expired - please request a new one";
 }
 
 if (!empty($errors)) {
@@ -44,7 +53,13 @@ if (!empty($errors)) {
 // Tac successfully completed at this point. set neccecary variables and redirect back to appropriate page.
 
 //Login tac
-if ($_SESSION['tacType'] == "login") {
+if ($_SESSION['tacType'] === "login") {
+    unset($_SESSION['tacType']);
+    // delete TAC and key from database
+    $tac = "";
+    $key = "";
+    updateKey($pdo, $userId, $key);
+    updateTAC($pdo, $userId, $tac);
     // Successful login
     updateLoginTime($pdo, $userId);
     $_SESSION['loggedIn'] = true;
@@ -56,4 +71,18 @@ if ($_SESSION['tacType'] == "login") {
     header('Location: ../../public/home.php');
     exit();
 }
-//Transaction tac
+
+// Transaction TAC
+else if ($_SESSION['tacType'] === "transfer") {
+    unset($_SESSION['tacType']);
+
+    $recipientId = $_SESSION['transaction']['recipient'];
+    $amount = $_SESSION['transaction']['amount'];
+
+    transferBalance($pdo, $userId, $recipientId, $amount);
+    $_SESSION['success'] = "Transfer processed successfully";
+
+    // Redirect back to transaction page
+    header('Location: ../../public/transfer-form.php');
+    exit();
+}

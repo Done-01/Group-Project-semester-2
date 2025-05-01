@@ -24,12 +24,29 @@ function displayUserErrors(): void
 }
 
 /**
+ * Display form success to users
+ */
+function displaySuccess(): void
+{
+    if (!empty($_SESSION['success'])) {
+        $success = $_SESSION['success'];
+        unset($_SESSION['success']);
+
+        echo '<div class="success-messages">';
+        echo '<p class="success-message">'
+            . htmlspecialchars($success)
+            .'</p>';
+        echo '</div>';
+    }
+}
+
+/**
  * Display a users balance
  */
-function displayBalance($pdo,$userId): void
+function displayBalance($pdo, $userId): void
 {
-    $balance = stmt_getBalance($pdo,$userId);
-    echo $balance;
+    $balance = stmt_getBalance($pdo, $userId);
+    echo number_format($balance / 100, 2); // Convert pence to pounds and format
 }
 
 /**
@@ -79,25 +96,23 @@ function renderNavbar(PDO $pdo, string $currentPage): void
     $isAdmin = !empty($_SESSION['userId']) ? isAdmin($pdo, $_SESSION['userId']) : false;
 
     $navItems = [
-        'home' => ['title' => "Home", 'url' => '../public/home.php'],
-        'about' => ['title' => "About", 'url' => '../public/about.php'],
+        'home' => ['title' => "Home", 'url' => '../public/home.php']
     ];
 
     if ($isLoggedIn && $isAdmin) {
         $navItems += [
-            'adminControls' => ['title' => "Admin Controls", 'url' => '../public/controls.php'],
+            'adminControls' => ['title' => "Admin Controls", 'url' => '../public/user-select-form.php'],
         ];
     } elseif ($isLoggedIn) {
         $navItems += [
-            'account' => ['title' => "Accounts", 'url' => '../public/account.php'],
-            'balance' => ['title' => "Balance", 'url' => '../public/balance.php'],
-            'transfer' => ['title' => "Transfer", 'url' => '../public/transfer.php'],
-            'transactions' => ['title' => "Transactions", 'url' => '../public/transactions.php'],
+            'account' => ['title' => "Account", 'url' => '../public/account.php'],
+            'transfer' => ['title' => "Transfer", 'url' => '../public/transfer-form.php'],
+            'contact' => ['title' => "Contact us", 'url' => '../public/contact.php'],
         ];
     }
 ?>
     <nav class="navbar-container">
-        <a href="../public/home.php" class="navbar-logo">Task Manager</a>
+        <a href="../public/home.php" class="navbar-logo">MZ BANK</a>
 
         <ul class="navbar-items">
             <?php foreach ($navItems as $itemKey => $item): ?>
@@ -117,4 +132,3 @@ function renderNavbar(PDO $pdo, string $currentPage): void
     </nav>
 <?php
 }
-

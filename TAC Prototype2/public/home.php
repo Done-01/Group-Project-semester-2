@@ -1,6 +1,5 @@
-<?php 
-require_once "../config.php";
-require_once "../includes/functions_view.php";
+<?php
+require_once '../includes/page_logic/home_logic.php';
 ?>
 
 <!DOCTYPE html>
@@ -8,13 +7,16 @@ require_once "../includes/functions_view.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/reset.css">
-    <link rel="stylesheet" href="assets/css/main.css">
-    <title>Login Page</title>
+    <title>Home</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <?php 
-        renderNavbar($pdo,"home");
-    ?>
+    <?php renderNavbar($pdo, 'home'); ?>
+
+    <div class="content-container">
+        <h2>Welcome, <?= $fName ?>!</h2>
+        <p>We're glad to have you back.</p>
+    </div>
 </body>
 </html>

@@ -18,6 +18,8 @@ if (!isset($_SESSION['userId'])) {
     exit();
 }
 
+$userId = $_SESSION['userId'];
+
 if ($_SESSION['attempts'] <= 1) {
     unset($_SESSION['attempts']);
     header('Location: ../logout.php');
@@ -45,9 +47,12 @@ try {
     $now = $now->format('Y-m-d H:i:s');
     $tac = generateTAC();
     // save the key, tac and time generated to the database.
-    updateKey($pdo, $_SESSION['userId'], $key);
-    updateTimeGenerated($pdo, $_SESSION['userId'], $now );
-    updateTAC($pdo, $_SESSION['userId'],$tac);
+    updateKey($pdo, $userId, $key);
+    updateTimeGenerated($pdo, $userId, $now );
+    updateTAC($pdo, $userId,$tac);
+
+    $_SESSION['userId'] = $userId;
+
     // redirect to the user to select method of recieveing TAC
     header('Location: ../../public/tac-choice.php');
     exit();

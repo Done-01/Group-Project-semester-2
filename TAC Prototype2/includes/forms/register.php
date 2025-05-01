@@ -72,8 +72,9 @@ try {
 
     // Regenerate session ID 
     session_regenerate_id(true);
-
-    header('Location: ../../public/home.php?signup=success');
+    $_SESSION['success'] = 'Registration successful! You can now log in.';
+    // Redirect to login page
+    header('Location: ../../public/login-form.php');
     exit();
 } catch (PDOException $e) {
     error_log('Database error during signup: ' . $e->getMessage());
