@@ -1,0 +1,260 @@
+/* ===== GENERAL STYLES ===== */
+body {
+  background-color: #F9F9F9;
+  color: #1B2430;
+}
+
+.content-container {
+  padding: 2rem;
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 2rem auto;
+  max-width: 800px;
+  text-align: center; /* Center text inside the container */
+}
+
+/* ===== NAVBAR ===== */
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1B2430;
+  padding: 1rem 2rem;
+}
+
+.navbar-logo {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #FFFFFF;
+}
+
+.navbar-items {
+  display: flex;
+  gap: 1rem;
+}
+
+.navbar-item {
+  list-style: none;
+}
+
+.navbar-link {
+  color: #FFFFFF;
+  font-size: 1.4rem;
+  transition: color 0.3s;
+}
+
+.navbar-link:hover,
+.navbar-item.active .navbar-link {
+  color: #F0A500;
+}
+
+.navbar-logout,
+.navbar-login {
+  color: #FFFFFF;
+  font-size: 1.4rem;
+  text-decoration: underline;
+}
+
+/* ===== HEADERS ===== */
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.header h2 {
+  font-size: 2.5rem;
+  color: #1B2430;
+}
+
+.instruction-text {
+  font-size: 1.4rem;
+  color: #666666;
+}
+
+/* ===== FORMS ===== */
+.form-container {
+  background-color: #FFFFFF;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 2rem auto;
+  text-align: center; /* Center text inside the form container */
+}
+
+.form-container label {
+  font-size: 1.4rem;
+  color: #1B2430;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.form-container input,
+.form-container textarea,
+.form-container select {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: row; /* Align items horizontally */
+  justify-content: center; /* Center the group within the container */
+  align-items: center; /* Vertically align items */
+  gap: 20px; /* Space between label-radio pairs */
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center; /* Align label text with radio button */
+  margin-right: 5px; /* Space between label and radio button */
+}
+
+.radio-group input[type="radio"] {
+  margin-left: 5px; /* Space between radio button and next label */
+  vertical-align: middle; /* Align radio button with label text */
+}
+
+.radio-options {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align items to the left */
+  gap: 1rem;
+  width: 100%; /* Ensure full width for proper alignment */
+  padding-left: 1rem; /* Add padding for better spacing */
+}
+
+.radio-group.horizontal {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.radio-group.horizontal label {
+  margin-right: 5px;
+}
+
+.form-submit {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+/* ===== BUTTONS ===== */
+button {
+  background-color: #1B2430;
+  color: #FFFFFF;
+  font-size: 1.4rem;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+  background-color: #F0A500;
+  transform: scale(1.05);
+}
+
+button:active {
+  background-color: #D18F00;
+  transform: scale(1);
+}
+
+/* ===== RESEND LINK ===== */
+.resend-link {
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 1.4rem;
+  color: #1B2430;
+  text-decoration: underline;
+  transition: color 0.3s, transform 0.2s;
+}
+
+.resend-link:hover {
+  color: #F0A500;
+  transform: scale(1.05);
+}
+
+.resend-link:active {
+  color: #D18F00;
+  transform: scale(1);
+}
+
+/* ===== TABLES ===== */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+}
+
+.table th,
+.table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+.table th {
+  background-color: #1B2430;
+  color: #FFFFFF;
+}
+
+.table tr:hover {
+  background-color: #F9F9F9;
+}
+
+/* ===== ALERTS ===== */
+.alert {
+  padding: 1rem;
+  border-radius: 5px;
+  margin-bottom: 1.5rem;
+}
+
+.alert.success {
+  background-color: #DFF2BF;
+  color: #4F8A10;
+}
+
+.alert.error {
+  background-color: #FFBABA;
+  color: #D8000C;
+}
+
+/* ===== ERROR AND SUCCESS MESSAGES ===== */
+.user-errors {
+  color: #D8000C; /* Red for error messages */
+}
+
+.success-message {
+  color: #4F8A10; /* Green for success messages */
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  .navbar-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar-items {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .content-container {
+    padding: 1.5rem;
+  }
+
+  .form-container {
+    padding: 1.5rem;
+  }
+}
